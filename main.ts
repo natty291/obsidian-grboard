@@ -770,6 +770,7 @@ export default class GoBoardViewerPlugin extends Plugin {
 				komi: nodeData.KM ? nodeData.KM[0] : null,
 				handicap: nodeData.HA ? nodeData.HA[0] : null,
 				rules: nodeData.RU ? nodeData.RU[0] : null,
+				gmValue: nodeData.GM ? parseInt(nodeData.GM[0]) : 1,
 			};
 
 			// Create wrapper and append to DOM first to get proper dimensions
@@ -1121,6 +1122,10 @@ export default class GoBoardViewerPlugin extends Plugin {
 
 			// Helper function to remove captured stones after a move
 			const removeCapturedStones = (signMap: (0 | 1 | -1)[][], lastX: number, lastY: number, lastColor: 1 | -1): void => {
+				if (gameInfo.gmValue == 4) {
+					// renju
+					return;
+				}
 				const opponentColor = lastColor === 1 ? -1 : 1;
 
 				// Check all four neighbors of the last move
