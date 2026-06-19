@@ -51,7 +51,7 @@ export default tseslint.config(
       "*.config.mjs",
       "*.config.js",
       "**/*.min.js",
-      "goboard-publisher/**",
+      "grboard-publisher/**",
     ],
   }
 );

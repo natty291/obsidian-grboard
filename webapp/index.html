@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Board Detect — Web App</title>
+
+  <!--
+    ★ 使い方 / Usage
+    ────────────────────────────────────────────────
+    1. main-webapp.ts を TypeScript コンパイラで JS に変換してください。
+       例: tsc main-webapp.ts --target ES2019 --module none --outFile main-webapp.js
+
+    2. このHTMLファイルと同じディレクトリに main-webapp.js を置いてください。
+
+    3. ブラウザで index.html を開けば動作します。
+
+    ★ How to use
+    ────────────────────────────────────────────────
+    1. Compile main-webapp.ts to JS:
+       e.g. tsc main-webapp.ts --target ES2019 --module none --outFile main-webapp.js
+
+    2. Place main-webapp.js in the same directory as this HTML file.
+
+    3. Open index.html in a browser.
+  -->
+
+  <style>
+    /* ══════════════════════════════════════════
+       CSS Custom Properties (Design tokens)
+       ══════════════════════════════════════════ */
+    :root {
+      --bd-bg:          #1a1c20;
+      --bd-surface:     #23262d;
+      --bd-surface2:    #2c303a;
+      --bd-border:      #3a3f4d;
+      --bd-text:        #e0e4ef;
+      --bd-text-muted:  #9aa0b8;
+      --bd-text-faint:  #666c84;
+      --bd-accent:      #5b7cf6;
+      --bd-accent-h:    #7a96ff;
+      --bd-primary-btn-bg:   #4a6cf7;
+      --bd-primary-btn-text: #ffffff;
+      --bd-radius:      6px;
+      --bd-font:        'Segoe UI', 'Hiragino Sans', 'YuGothic', system-ui, sans-serif;
+      --bd-mono:        'JetBrains Mono', 'Fira Code', 'Menlo', monospace;
+    }
+
+    /* ══════════════════════════════════════════
+       Reset & base
+       ══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bd-bg);
+      color: var(--bd-text);
+      font-family: var(--bd-font);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════════════
+       Page layout
+       ══════════════════════════════════════════ */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 0 0 40px;
+    }
+
+    /* Header bar */
+    .app-header {
+      width: 100%;
+      background: linear-gradient(135deg, #1e2235 0%, #252942 100%);
+      border-bottom: 1px solid var(--bd-border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .app-header .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--bd-accent);
+      letter-spacing: 0.04em;
+    }
+    .app-header .subtitle {
+      font-size: 0.75rem;
+      color: var(--bd-text-faint);
+    }
+
+    /* Main container */
+    #app-root {
+      width: 100%;
+      max-width: 640px;
+      padding: 20px 16px 0;
+    }
+
+    /* ══════════════════════════════════════════
+       BD View container
+       ══════════════════════════════════════════ */
+    .bd-view-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .bd-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--bd-text-muted);
+      letter-spacing: 0.06em;
+      padding: 4px 0 10px;
+      border-bottom: 1px solid var(--bd-border);
+      margin-bottom: 16px;
+    }
+
+    /* ══════════════════════════════════════════
+       Start overlay
+       ══════════════════════════════════════════ */
+    .bd-start-overlay {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 20px;
+    }
+
+    .bd-start-box {
+      background: var(--bd-surface);
+      border: 1px solid var(--bd-border);
+      border-radius: 12px;
+      padding: 28px 28px 24px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .bd-start-box h2 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--bd-text-muted);
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .bd-start-btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ══════════════════════════════════════════
+       Cards
+       ══════════════════════════════════════════ */
+    .bd-card {
+      background: var(--bd-surface);
+      border: 1px solid var(--bd-border);
+      border-radius: var(--bd-radius);
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
+
+    .bd-card h2 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--bd-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--bd-border);
+    }
+
+    /* ══════════════════════════════════════════
+       Buttons
+       ══════════════════════════════════════════ */
+    .bd-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 9px 18px;
+      border-radius: var(--bd-radius);
+      border: 1px solid var(--bd-border);
+      background: var(--bd-surface2);
+      color: var(--bd-text);
+      font-size: 0.82rem;
+      font-family: var(--bd-font);
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      user-select: none;
+      margin-top: 8px;
+    }
+    .bd-btn:hover  { background: #353a4a; border-color: #4a5068; }
+    .bd-btn:active { transform: scale(0.97); }
+
+    .bd-btn-primary {
+      background: var(--bd-primary-btn-bg);
+      border-color: var(--bd-accent);
+      color: var(--bd-primary-btn-text);
+      font-weight: 600;
+    }
+    .bd-btn-primary:hover { background: var(--bd-accent-h); border-color: var(--bd-accent-h); }
+
+    .bd-btn-correction-active {
+      background: #e8a000 !important;
+      color: #fff !important;
+      border-color: #c07800 !important;
+      animation: bd-correction-pulse 1.5s ease-in-out infinite;
+    }
+    .bd-btn-correction-active:hover { background: #c07800 !important; }
+    @keyframes bd-correction-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(232,160,0,0.5); }
+      50%       { box-shadow: 0 0 0 5px rgba(232,160,0,0); }
+    }
+    .bd-correction-overlay { pointer-events: auto; }
+
+
+    .bd-btn-image-overlay-active {
+      background: #5566cc !important;
+      color: #fff !important;
+      border-color: #3344aa !important;
+    }
+    .bd-btn-image-overlay-active:hover { background: #3344aa !important; }
+
+    /* ══════════════════════════════════════════
+       Form fields
+       ══════════════════════════════════════════ */
+    .bd-field-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .bd-field-row label {
+      min-width: 100px;
+      font-size: 0.78rem;
+      color: var(--bd-text-muted);
+      flex-shrink: 0;
+    }
+
+    input[type="number"],
+    input[type="text"],
+    select,
+    textarea {
+      background: var(--bd-surface2);
+      border: 1px solid var(--bd-border);
+      border-radius: 4px;
+      color: var(--bd-text);
+      font-size: 0.82rem;
+      font-family: var(--bd-font);
+      padding: 4px 8px;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    input[type="number"]:focus,
+    input[type="text"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--bd-accent);
+    }
+
+    input[type="number"] { width: 70px; }
+
+    input[type="range"] {
+      accent-color: var(--bd-accent);
+      cursor: pointer;
+    }
+
+    .bd-val {
+      min-width: 28px;
+      text-align: right;
+      font-size: 0.82rem;
+      color: var(--bd-text);
+      font-family: var(--bd-mono);
+    }
+
+    details summary {
+      font-size: 0.82rem;
+      color: var(--bd-text-muted);
+      cursor: pointer;
+      user-select: none;
+      padding: 4px 0;
+    }
+    details summary::-webkit-details-marker { color: var(--bd-accent); }
+    details[open] summary { color: var(--bd-text); }
+
+    /* ══════════════════════════════════════════
+       Canvas & image area
+       ══════════════════════════════════════════ */
+    .bd-canvas-label {
+      font-size: 0.72rem;
+      color: var(--bd-text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+      margin-top: 14px;
+    }
+
+    .bd-canvas-wrap {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      border-radius: 4px;
+      border: 1px solid var(--bd-border);
+    }
+
+    .bd-canvas-wrap canvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ══════════════════════════════════════════
+       Drop zone
+       ══════════════════════════════════════════ */
+    .bd-drop-zone {
+      margin-top: 8px;
+      padding: 10px;
+      border: 1px dashed var(--bd-border);
+      border-radius: var(--bd-radius);
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--bd-text-faint);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .bd-drop-zone:hover,
+    .bd-drop-zone.over {
+      background: rgba(91,124,246,0.07);
+      border-color: var(--bd-accent);
+      color: var(--bd-text-muted);
+    }
+
+    /* ══════════════════════════════════════════
+       Margin diagram
+       ══════════════════════════════════════════ */
+    .bd-img-info {
+      font-size: 0.7rem;
+      color: var(--bd-text-faint);
+      margin-bottom: 8px;
+    }
+
+    .bd-diagram {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      background: rgba(91,124,246,0.08);
+      border: 1px solid var(--bd-border);
+      border-radius: 4px;
+      margin-bottom: 10px;
+      flex-shrink: 0;
+    }
+
+    .bd-diagram-inner {
+      position: absolute;
+      background: var(--bd-accent);
+      opacity: 0.25;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+
+    .bd-diagram-label {
+      position: absolute;
+      font-size: 0.58rem;
+      color: var(--bd-text-faint);
+    }
+
+    /* ══════════════════════════════════════════
+       Error / feedback
+       ══════════════════════════════════════════ */
+    .bd-error {
+      margin-top: 6px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      background: rgba(192,57,43,0.15);
+      border: 1px solid rgba(192,57,43,0.4);
+      color: #e07060;
+      font-size: 0.75rem;
+    }
+
+    .bd-copy-feedback {
+      font-size: 0.72rem;
+      color: #80c860;
+      font-weight: 600;
+    }
+
+    /* ══════════════════════════════════════════
+       Toast (injected by JS)
+       ══════════════════════════════════════════ */
+    #bd-toast {
+      font-family: var(--bd-font);
+    }
+
+    /* ══════════════════════════════════════════
+       Confirm dialog (injected by JS)
+       ══════════════════════════════════════════ */
+    /* Uses inline styles from JS; variable overrides work via cascade */
+
+    /* ══════════════════════════════════════════
+       Scrollbar (webkit)
+       ══════════════════════════════════════════ */
+    ::-webkit-scrollbar        { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track  { background: var(--bd-bg); }
+    ::-webkit-scrollbar-thumb  { background: var(--bd-border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #555c72; }
+
+    /* ══════════════════════════════════════════
+       Responsive tweaks
+       ══════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      .bd-field-row label { min-width: 80px; }
+      .bd-start-box { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <span class="logo">🔍 Board Detect</span>
+    <span class="subtitle">碁盤 / 将棋盤 石検出 → SGF 生成</span>
+  </header>
+
+  <!-- App root -->
+  <div id="app-root"></div>
+
+  <!--
+    main-webapp.js を読み込みます。
+    TypeScript コンパイル後のファイルを同じディレクトリに置いてください。
+    
+    コンパイル例:
+      tsc main-webapp.ts --target ES2019 --module none --outFile main-webapp.js
+    または:
+      npx tsc main-webapp.ts --target ES2019 --module none --outFile main-webapp.js
+  -->
+  <script src="main-webapp.js"></script>
+
+  <script>
+    // ── アプリの初期化 / App initialization ──
+    (function () {
+      var container = document.getElementById('app-root');
+      if (!container) {
+        console.error('Board Detect: #app-root not found');
+        return;
+      }
+
+      // BdDetectApp が読み込まれているか確認
+      if (typeof BdDetectApp === 'undefined') {
+        container.innerHTML =
+          '<div style="padding:32px;text-align:center;color:#e07060">' +
+          '<p style="font-size:1.1rem;font-weight:600;margin-bottom:12px">⚠️ main-webapp.js が見つかりません</p>' +
+          '<p style="font-size:0.85rem;color:#9aa0b8;line-height:1.8">' +
+          'main-webapp.ts を TypeScript でコンパイルし、<br>' +
+          'このHTMLと同じディレクトリに <b>main-webapp.js</b> を置いてください。<br><br>' +
+          '<code style="background:#2c303a;padding:4px 10px;border-radius:4px;font-size:0.78rem">' +
+          'tsc main-webapp.ts --target ES2019 --module none --outFile main-webapp.js' +
+          '</code>' +
+          '</p></div>';
+        return;
+      }
+
+      // アプリを生成してマウント
+      var app = new BdDetectApp({
+        language: navigator.language.startsWith('ja') ? 'ja' : 'en',
+      });
+      app.mount(container);
+    })();
+  </script>
+</body>
+</html>

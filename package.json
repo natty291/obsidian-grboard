@@ -1,49 +1,23 @@
 {
-  "name": "goboard-viewer",
-  "version": "2.0.0",
-  "description": "Obsidian plugin to display SGF files as interactive Go boards with playback controls, variations, and markers",
+  "name": "grboard",
+  "version": "1.0.0",
+  "description": "Board Crop & Auto Stone Detector for Obsidian",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
-    "build": "npm run lint && tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-    "version": "node version-bump.mjs && git add manifest.json versions.json",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "precommit": "npm run lint"
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production"
   },
-  "keywords": [
-    "obsidian",
-    "plugin",
-    "go",
-    "sgf",
-    "weiqi",
-    "baduk",
-    "sabaki",
-    "goban",
-    "variations",
-    "markers"
-  ],
-  "author": "j2masamitu",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/j2masamitu/obsidian-goboard-viewer.git"
-  },
-  "bugs": {
-    "url": "https://github.com/j2masamitu/obsidian-goboard-viewer/issues"
-  },
-  "homepage": "https://github.com/j2masamitu/obsidian-goboard-viewer#readme",
+  "keywords": [],
+  "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^16.11.6",
     "@types/react": "^18.2.0",
     "builtin-modules": "^3.3.0",
-    "esbuild": "0.17.3",
-    "eslint": "^9.39.1",
-    "eslint-plugin-obsidianmd": "^0.1.9",
     "obsidian": "latest",
+    "esbuild": "0.17.3",
     "tslib": "2.4.0",
-    "typescript": "^5.0.0",
-    "typescript-eslint": "^8.46.4"
+    "typescript": "4.7.4"
   },
   "dependencies": {
     "@sabaki/sgf": "^3.4.5",

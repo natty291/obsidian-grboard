@@ -1,10 +1,10 @@
 {
-  "id": "goboard-viewer",
-  "name": "Go Board Viewer",
-  "version": "2.0.0",
+  "id": "grboard",
+  "name": "Board Detect",
+  "version": "1.0.0",
   "minAppVersion": "0.15.0",
-  "description": "Displays Go (Weiqi/Baduk) SGF files and code blocks as interactive Go boards with playback controls for desktop and mobile.",
-  "author": "j2masamitu",
-  "authorUrl": "https://github.com/j2masamitu",
+  "description": "Detects stones from Go/Renju board images and generates SGF/PNG.",
+  "author": "natty291",
+  "authorUrl": "https://github.com/natty291",
   "isDesktopOnly": false
 }

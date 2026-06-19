@@ -1,12 +1,278 @@
+/* ─── Board Detect Plugin Styles ─── */
+
+.bd-view-container {
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: var(--text-normal);
+  overflow-y: auto;
+  height: 100%;
+}
+
+.bd-title {
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  padding-bottom: 8px;
+}
+
+.bd-card {
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.bd-card h2 {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.bd-field-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.bd-field-row label {
+  color: var(--text-muted);
+  min-width: 70px;
+  font-size: 0.75rem;
+}
+
+.bd-field-row input[type=number] {
+  width: 64px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-normal);
+  padding: 3px 6px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  border-radius: 3px;
+}
+
+.bd-field-row input[type=range] {
+  flex: 1;
+  accent-color: var(--interactive-accent);
+}
+
+.bd-field-row .bd-val {
+  min-width: 28px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.bd-field-row input[type=text],
+.bd-field-row select {
+  flex: 1;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-normal);
+  padding: 3px 6px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  border-radius: 3px;
+}
+
+.bd-btn {
+  width: 100%;
+  background: var(--background-secondary-alt);
+  color: var(--text-normal);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 3px;
+  padding: 7px;
+  font-size: 0.78rem;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+.bd-btn:hover { background: var(--background-modifier-hover); }
+
+.bd-btn-primary {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  border-color: var(--interactive-accent);
+}
+.bd-btn-primary:hover { background: var(--interactive-accent-hover); }
+
+/* Slider thumb at 80% size */
+.bd-view-container input[type=range]::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+}
+.bd-view-container input[type=range]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+}
+.bd-view-container input[type=range]::-ms-thumb {
+  width: 16px;
+  height: 16px;
+}
+.bd-drop-zone {
+  border: 2px dashed var(--background-modifier-border);
+  border-radius: 4px;
+  padding: 16px;
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  margin-bottom: 12px;
+}
+.bd-drop-zone:hover,
+.bd-drop-zone.over {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+/* Canvas wrapper */
+.bd-canvas-label {
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.bd-canvas-wrap {
+  position: relative;
+  display: inline-block;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  margin-bottom: 12px;
+  max-width: 100%;
+}
+
+.bd-canvas-wrap canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* Margin diagram */
+.bd-diagram {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+  margin: 6px auto 10px;
+  flex-shrink: 0;
+}
+.bd-diagram-inner {
+  position: absolute;
+  background: rgba(var(--interactive-accent-rgb, 99,102,241), 0.15);
+  border: 1px dashed var(--interactive-accent);
+}
+.bd-diagram-label {
+  position: absolute;
+  font-size: 0.6rem;
+  color: var(--text-faint);
+}
+
+/* Stats */
+#bd-statsText {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+#bd-statsText b { color: var(--text-normal); }
+
+/* SGF textarea */
+#bd-sgfText {
+  width: 100%;
+  min-height: 100px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-normal);
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  padding: 8px;
+  border-radius: 3px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.bd-copy-feedback {
+  font-size: 0.7rem;
+  color: #80c860;
+  margin-left: 8px;
+}
+
+.bd-error {
+  color: var(--text-error);
+  font-size: 0.7rem;
+  margin-top: 6px;
+}
+
+/* Startup overlay */
+.bd-start-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  margin-bottom: 12px;
+}
+
+.bd-start-box {
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  padding: 24px 28px;
+  text-align: center;
+  width: 100%;
+}
+
+.bd-start-box h2 {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.bd-start-btn-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.bd-start-btn-row button {
+  width: 168px;
+  padding: 10px 10px;
+  font-size: 0.78rem;
+}
+
+#bd-genOptions {
+  margin-top: 16px;
+  border-top: 1px solid var(--background-modifier-border);
+  padding-top: 14px;
+  text-align: left;
+}
+
+.bd-img-info {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
 /* Go Board Viewer Plugin Styles - Sabaki Version */
 
 /* CSS Variables for board customization */
 body {
-  --goboard-bg-color: #DCB35C;
-  --goboard-line-color: #000000;
-  --goboard-coordinate-color: #333333;
-  --goboard-marker-color: #FF0000;
-  --goboard-variation-color: #2196F3;
+  --grboard-bg-color: #DCB35C;
+  --grboard-line-color: #000000;
+  --grboard-coordinate-color: #333333;
+  --grboard-marker-color: #FF0000;
+  --grboard-variation-color: #2196F3;
 }
 
 /* Utility classes */
@@ -14,14 +280,14 @@ body {
   display: none !important;
 }
 
-.goboard-container {
+.grboard-container {
   margin: 1em 0;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.goboard-wrapper {
+.grboard-wrapper {
   max-width: 100%;
   width: 100%;
   max-width: 700px;
@@ -33,7 +299,7 @@ body {
 }
 
 /* Game Information Section */
-.goboard-game-info {
+.grboard-game-info {
   background: var(--background-secondary);
   padding: 1em;
   border-radius: 6px;
@@ -82,7 +348,7 @@ body {
   border-top: 1px solid var(--background-modifier-border);
 }
 
-.goboard-display {
+.grboard-display {
   margin-bottom: 1em;
   display: flex;
   justify-content: flex-start;
@@ -92,33 +358,33 @@ body {
 }
 
 /* Sabaki Goban styles */
-.goboard-display .shudan-goban {
+.grboard-display .shudan-goban {
   border: 1px solid var(--background-modifier-border);
   border-radius: 4px;
-  background: var(--goboard-bg-color) !important;
+  background: var(--grboard-bg-color) !important;
   transform-origin: top left;
 }
 
 /* Board grid lines */
-.goboard-display .shudan-goban svg line,
-.goboard-display .shudan-goban line,
-.goboard-display svg line {
-  stroke: var(--goboard-line-color) !important;
+.grboard-display .shudan-goban svg line,
+.grboard-display .shudan-goban line,
+.grboard-display svg line {
+  stroke: var(--grboard-line-color) !important;
 }
 
 /* Board grid lines (rect elements) */
-.goboard-display .shudan-grid .shudan-gridline,
-.goboard-display svg.shudan-grid rect.shudan-gridline {
-  fill: var(--goboard-line-color) !important;
+.grboard-display .shudan-grid .shudan-gridline,
+.grboard-display svg.shudan-grid rect.shudan-gridline {
+  fill: var(--grboard-line-color) !important;
 }
 
 /* Star points (hoshi) on the board */
-.goboard-display .shudan-goban svg circle,
-.goboard-display .shudan-goban circle {
-  fill: var(--goboard-line-color) !important;
+.grboard-display .shudan-goban svg circle,
+.grboard-display .shudan-goban circle {
+  fill: var(--grboard-line-color) !important;
 }
 
-.goboard-display .shudan-vertex {
+.grboard-display .shudan-vertex {
   cursor: default;
   position: relative;
   display: flex !important;
@@ -127,7 +393,7 @@ body {
 }
 
 /* Stone image container - this is where the text is */
-.goboard-display .shudan-stone-image {
+.grboard-display .shudan-stone-image {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -142,8 +408,8 @@ body {
 }
 
 /* Black stones - using the actual class names from shudan */
-.goboard-display .shudan-sign_1,
-.goboard-display .shudan-stone-image.shudan-sign_1 {
+.grboard-display .shudan-sign_1,
+.grboard-display .shudan-stone-image.shudan-sign_1 {
   border-radius: 50% !important;
   background: radial-gradient(circle at 30% 30%, #666, #111, #000) !important;
   box-shadow:
@@ -152,8 +418,8 @@ body {
 }
 
 /* White stones - using the actual class names from shudan */
-.goboard-display .shudan-sign_-1,
-.goboard-display .shudan-stone-image.shudan-sign_-1 {
+.grboard-display .shudan-sign_-1,
+.grboard-display .shudan-stone-image.shudan-sign_-1 {
   border-radius: 50% !important;
   background: radial-gradient(circle at 30% 30%, #fff, #f5f5f5, #ddd) !important;
   box-shadow:
@@ -163,43 +429,43 @@ body {
 }
 
 /* Force all shudan elements to be circular */
-.goboard-display .shudan-inner {
+.grboard-display .shudan-inner {
   border-radius: 50% !important;
 }
 
 /* More specific selectors for all stone-related elements */
-.goboard-display [class*="shudan-sign"] {
+.grboard-display [class*="shudan-sign"] {
   border-radius: 50% !important;
 }
 
-.goboard-display .shudan-inner.shudan-stone-image {
+.grboard-display .shudan-inner.shudan-stone-image {
   border-radius: 50% !important;
 }
 
 /* Coordinate labels - prevent overlapping for 2-digit numbers */
 /* Left/right coordinates need wider container to fit 2-digit numbers */
-.goboard-display .shudan-coordy {
+.grboard-display .shudan-coordy {
   min-width: 30px !important;
   width: auto !important;
 }
 
-.goboard-display .shudan-coordy > div {
+.grboard-display .shudan-coordy > div {
   overflow: visible !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
 
-.goboard-display .shudan-coordx,
-.goboard-display .shudan-coordy {
+.grboard-display .shudan-coordx,
+.grboard-display .shudan-coordy {
   overflow: visible !important;
 }
 
-.goboard-display .shudan-coordx span,
-.goboard-display .shudan-coordy span {
+.grboard-display .shudan-coordx span,
+.grboard-display .shudan-coordy span {
   font-size: 11px !important;
   font-weight: 600 !important;
-  color: var(--goboard-coordinate-color) !important;
+  color: var(--grboard-coordinate-color) !important;
   white-space: nowrap !important;
   letter-spacing: 0 !important;
   line-height: 1.2 !important;
@@ -209,7 +475,7 @@ body {
 }
 
 /* Markers on the board */
-.goboard-display .shudan-marker {
+.grboard-display .shudan-marker {
   pointer-events: none;
   display: flex !important;
   align-items: center !important;
@@ -221,178 +487,142 @@ body {
   left: 0 !important;
   text-align: center !important;
   z-index: 10 !important;
-  /* Hide default text content from shudan library */
   font-size: 0 !important;
   color: transparent !important;
   text-indent: -9999px !important;
 }
 
+/* Labels (move numbers, SGF labels) are rendered as div text, not via ::before */
+/* Inherit color from the vertex */
+.grboard-display .shudan-marker_label .shudan-marker {
+  color: inherit !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  font-family: 'Arial', 'Helvetica', sans-serif !important;
+  text-indent: 0 !important;
+}
+
+/* Set color on vertex: branch label color based on stone vs. empty intersection */
+/* Label on empty intersection */
+.grboard-display .shudan-sign_0.shudan-marker_label,
+.grboard-display .shudan-vertex:not(.shudan-sign_1):not(.shudan-sign_-1).shudan-marker_label {
+  color: var(--grboard-marker-empty-color, #222222);
+}
+/* Label on black stone (numbers use move-number color, letters use symbol color) */
+/* Note: move numbers and SGF labels are distinguished by JS class */
+/* Label on white stone */
+
 /* Hide all child elements inside markers */
-.goboard-display .shudan-marker > * {
+.grboard-display .shudan-marker > * {
   display: none !important;
 }
 
 /* Show only the ::before pseudo-element content for markers */
-.goboard-display .shudan-marker::before {
+.grboard-display .shudan-marker::before {
   font-size: 22px !important;
   color: inherit !important;
   text-indent: 0 !important;
   display: inline-block !important;
 }
 
-/* Label markers - default red - with multiple selectors */
-/* Labels need to show text, so override the hidden text rules */
-.goboard-display .shudan-marker.shudan-label,
-.goboard-display [class*="shudan-marker"][class*="label"],
-.goboard-display .shudan-marker[data-type="label"],
-.goboard-display .shudan-vertex .shudan-marker {
-  font-size: 22px !important;
+/* Label markers - layout only; color controlled by DOM class */
+.grboard-display .shudan-marker.shudan-label,
+.grboard-display [class*="shudan-marker"][class*="label"],
+.grboard-display .shudan-marker[data-type="label"],
+.grboard-display .shudan-vertex .shudan-marker {
+  font-size: 13px !important;
   font-weight: bold !important;
   font-family: 'Arial', 'Helvetica', sans-serif !important;
-  color: var(--goboard-marker-color) !important;
   text-indent: 0 !important;
 }
 
 /* Show label text content (override hiding rules) */
-.goboard-display .shudan-marker.shudan-label > *,
-.goboard-display [class*="shudan-marker"][class*="label"] > * {
+.grboard-display .shudan-marker.shudan-label > *,
+.grboard-display [class*="shudan-marker"][class*="label"] > * {
   display: inline !important;
 }
 
-/* Label markers on stones - also red */
-.goboard-display .shudan-sign_1 .shudan-marker.shudan-label,
-.goboard-display .shudan-sign_-1 .shudan-marker.shudan-label {
-  color: var(--goboard-marker-color) !important;
-  font-size: 20px !important;
+/* Label markers on stones - font-size only; color controlled by DOM class */
+.grboard-display .shudan-sign_1 .shudan-marker.shudan-label,
+.grboard-display .shudan-sign_-1 .shudan-marker.shudan-label {
+  font-size: 13px !important;
 }
 
 /* Variation markers (A, B, C single letters) - blue */
-.goboard-display .shudan-marker.variation-marker {
-  color: var(--goboard-variation-color) !important;
+.grboard-display .shudan-marker.variation-marker {
+  color: var(--grboard-variation-color) !important;
 }
 
-.goboard-display .shudan-sign_1 .shudan-marker.variation-marker,
-.goboard-display .shudan-sign_-1 .shudan-marker.variation-marker {
-  color: var(--goboard-variation-color) !important;
+.grboard-display .shudan-sign_1 .shudan-marker.variation-marker,
+.grboard-display .shudan-sign_-1 .shudan-marker.variation-marker {
+  color: var(--grboard-variation-color) !important;
 }
-
 
 /* Circle marker (CR) - red */
-.goboard-display .shudan-marker.shudan-circle::before,
-.goboard-display [class*="shudan-marker"][class*="circle"]::before {
+.grboard-display .shudan-marker.shudan-circle::before,
+.grboard-display [class*="shudan-marker"][class*="circle"]::before {
   content: '○' !important;
   font-size: 22px !important;
-  color: var(--goboard-marker-color) !important;
+  color: var(--mk-color, var(--grboard-marker-color, #ff0000)) !important;
   font-weight: bold !important;
   line-height: 1 !important;
-}
-
-.goboard-display .shudan-sign_1 .shudan-marker.shudan-circle::before,
-.goboard-display .shudan-sign_-1 .shudan-marker.shudan-circle::before,
-.goboard-display .shudan-sign_1 [class*="circle"]::before,
-.goboard-display .shudan-sign_-1 [class*="circle"]::before {
-  color: var(--goboard-marker-color) !important;
 }
 
 /* Square marker (SQ) - red */
-.goboard-display .shudan-marker.shudan-square::before,
-.goboard-display [class*="shudan-marker"][class*="square"]::before {
+.grboard-display .shudan-marker.shudan-square::before,
+.grboard-display [class*="shudan-marker"][class*="square"]::before {
   content: '□' !important;
   font-size: 22px !important;
-  color: var(--goboard-marker-color) !important;
+  color: var(--mk-color, var(--grboard-marker-color, #ff0000)) !important;
   font-weight: bold !important;
   line-height: 1 !important;
-}
-
-.goboard-display .shudan-sign_1 .shudan-marker.shudan-square::before,
-.goboard-display .shudan-sign_-1 .shudan-marker.shudan-square::before,
-.goboard-display .shudan-sign_1 [class*="square"]::before,
-.goboard-display .shudan-sign_-1 [class*="square"]::before {
-  color: var(--goboard-marker-color) !important;
 }
 
 /* Triangle marker (TR) - red */
-.goboard-display .shudan-marker.shudan-triangle::before,
-.goboard-display [class*="shudan-marker"][class*="triangle"]::before {
+.grboard-display .shudan-marker.shudan-triangle::before,
+.grboard-display [class*="shudan-marker"][class*="triangle"]::before {
   content: '△' !important;
   font-size: 22px !important;
-  color: var(--goboard-marker-color) !important;
+  color: var(--mk-color, var(--grboard-marker-color, #ff0000)) !important;
   font-weight: bold !important;
   line-height: 1 !important;
-}
-
-.goboard-display .shudan-sign_1 .shudan-marker.shudan-triangle::before,
-.goboard-display .shudan-sign_-1 .shudan-marker.shudan-triangle::before,
-.goboard-display .shudan-sign_1 [class*="triangle"]::before,
-.goboard-display .shudan-sign_-1 [class*="triangle"]::before {
-  color: var(--goboard-marker-color) !important;
 }
 
 /* Point marker (MA - X mark) - red */
-.goboard-display .shudan-marker.shudan-point::before,
-.goboard-display [class*="shudan-marker"][class*="point"]::before {
+.grboard-display .shudan-marker.shudan-point::before,
+.grboard-display [class*="shudan-marker"][class*="point"]::before {
   content: '✕' !important;
   font-size: 22px !important;
-  color: var(--goboard-marker-color) !important;
+  color: var(--mk-color, var(--grboard-marker-color, #ff0000)) !important;
   font-weight: bold !important;
   line-height: 1 !important;
 }
 
-.goboard-display .shudan-sign_1 .shudan-marker.shudan-point::before,
-.goboard-display .shudan-sign_-1 .shudan-marker.shudan-point::before,
-.goboard-display .shudan-sign_1 [class*="point"]::before,
-.goboard-display .shudan-sign_-1 [class*="point"]::before {
-  color: var(--goboard-marker-color) !important;
-}
-
-/* Cross marker (alternative) */
-.goboard-display .shudan-marker.shudan-cross::before {
-  content: '✕';
-  font-size: 28px;
-  font-weight: bold;
-  color: #F44336;
-  text-shadow:
-    -2px -2px 3px white,
-    2px -2px 3px white,
-    -2px 2px 3px white,
-    2px 2px 3px white;
-}
-
-.goboard-display .shudan-sign_1 .shudan-marker.shudan-cross::before {
-  color: white;
-  text-shadow: none;
-}
-
-.goboard-display .shudan-sign_-1 .shudan-marker.shudan-cross::before {
-  color: black;
-  text-shadow: none;
-}
-
 /* Controls section */
-.goboard-controls {
+.grboard-controls {
   display: flex;
   flex-direction: column;
   gap: 1em;
 }
 
-.goboard-info {
+.grboard-info {
   background: var(--background-secondary);
   padding: 0.75em;
   border-radius: 4px;
   font-size: 13px;
 }
 
-.goboard-info div {
+.grboard-info div {
   margin: 0.25em 0;
 }
 
-.goboard-info .variation-indicator {
+.grboard-info .variation-indicator {
   color: var(--text-accent);
   font-size: 0.9em;
   font-style: italic;
 }
 
-.goboard-comment {
+.grboard-comment {
   margin-top: 0.5em;
   padding: 0.5em;
   background: var(--background-primary);
@@ -402,30 +632,30 @@ body {
   color: var(--text-muted);
 }
 
-.goboard-comment-editor {
+.grboard-comment-editor {
   margin-bottom: 1em;
   padding: 0.75em;
   background: var(--background-secondary);
   border-radius: 4px;
 }
 
-.goboard-comment-editor strong {
+.grboard-comment-editor strong {
   display: block;
   margin-bottom: 0.5em;
   color: var(--text-normal);
 }
 
-.goboard-btn-save {
+.grboard-btn-save {
   margin-top: 0.5em;
   background: var(--interactive-accent);
   color: var(--text-on-accent);
 }
 
-.goboard-btn-save:hover {
+.grboard-btn-save:hover {
   background: var(--interactive-accent-hover);
 }
 
-.goboard-comment-edit {
+.grboard-comment-edit {
   width: 100%;
   min-height: 60px;
   padding: 0.5em;
@@ -437,14 +667,14 @@ body {
   resize: vertical;
 }
 
-.goboard-game-info-editor {
+.grboard-game-info-editor {
   margin-bottom: 1em;
   padding: 0.75em;
   background: var(--background-secondary);
   border-radius: 4px;
 }
 
-.goboard-game-info-editor strong {
+.grboard-game-info-editor strong {
   display: block;
   margin-bottom: 0.5em;
   color: var(--text-normal);
@@ -482,27 +712,27 @@ body {
   border-color: var(--interactive-accent);
 }
 
-.goboard-variations {
+.grboard-variations {
   background: var(--background-secondary);
   padding: 0.75em;
   border-radius: 4px;
   margin-bottom: 0.75em;
 }
 
-.goboard-variations-label {
+.grboard-variations-label {
   font-size: 12px;
   font-weight: 600;
   margin-bottom: 0.5em;
   color: var(--text-muted);
 }
 
-.goboard-variations-buttons {
+.grboard-variations-buttons {
   display: flex;
   gap: 0.5em;
   flex-wrap: wrap;
 }
 
-.goboard-variation-btn {
+.grboard-variation-btn {
   background: var(--interactive-normal);
   color: var(--text-normal);
   border: 1px solid var(--background-modifier-border);
@@ -515,25 +745,25 @@ body {
   min-width: 32px;
 }
 
-.goboard-variation-btn:hover {
+.grboard-variation-btn:hover {
   background: var(--interactive-hover);
 }
 
-.goboard-variation-btn.selected {
+.grboard-variation-btn.selected {
   background: var(--interactive-accent);
   color: var(--text-on-accent);
   border-color: var(--interactive-accent);
   font-weight: 600;
 }
 
-.goboard-btn-group {
+.grboard-btn-group {
   display: flex;
   gap: 0.5em;
   justify-content: center;
   margin-bottom: 0.75em;
 }
 
-.goboard-btn {
+.grboard-btn {
   background: var(--interactive-normal);
   color: var(--text-normal);
   border: 1px solid var(--background-modifier-border);
@@ -545,17 +775,17 @@ body {
   transition: background 0.2s;
 }
 
-.goboard-btn:hover {
+.grboard-btn:hover {
   background: var(--interactive-hover);
 }
 
-.goboard-btn:active {
+.grboard-btn:active {
   background: var(--interactive-accent);
   transform: translateY(1px);
 }
 
 /* Auto-play controls */
-.goboard-autoplay-controls {
+.grboard-autoplay-controls {
   display: flex;
   gap: 0.75em;
   align-items: center;
@@ -566,29 +796,29 @@ body {
   margin-bottom: 1em;
 }
 
-.goboard-btn-autoplay {
+.grboard-btn-autoplay {
   background: var(--interactive-accent);
   color: var(--text-on-accent);
   padding: 0.6em 1.2em;
   font-weight: 600;
 }
 
-.goboard-btn-autoplay:hover {
+.grboard-btn-autoplay:hover {
   background: var(--interactive-accent-hover);
 }
 
-.goboard-btn-autoplay.playing {
+.grboard-btn-autoplay.playing {
   background: var(--text-warning);
   color: var(--text-on-accent);
 }
 
-.goboard-autoplay-label {
+.grboard-autoplay-label {
   font-size: 13px;
   font-weight: 500;
   color: var(--text-muted);
 }
 
-.goboard-autoplay-speed {
+.grboard-autoplay-speed {
   padding: 0.4em 0.6em;
   border: 1px solid var(--background-modifier-border);
   border-radius: 4px;
@@ -598,12 +828,12 @@ body {
   cursor: pointer;
 }
 
-.goboard-autoplay-speed:focus {
+.grboard-autoplay-speed:focus {
   outline: none;
   border-color: var(--interactive-accent);
 }
 
-.goboard-error {
+.grboard-error {
   color: var(--text-error);
   padding: 1em;
   background: var(--background-secondary);
@@ -614,27 +844,27 @@ body {
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .goboard-container {
+  .grboard-container {
     margin: 0.5em 0;
   }
 
-  .goboard-wrapper {
+  .grboard-wrapper {
     width: 100%;
     padding: 0.5em;
     max-width: 100%;
   }
 
-  .goboard-display {
+  .grboard-display {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 
-  .goboard-btn-group {
+  .grboard-btn-group {
     flex-wrap: wrap;
     gap: 0.3em;
   }
 
-  .goboard-btn {
+  .grboard-btn {
     flex: 1 1 45%;
     padding: 0.6em 0.5em;
     font-size: 13px;
@@ -656,12 +886,12 @@ body {
 }
 
 /* Dark mode adjustments */
-.theme-dark .goboard-display .shudan-goban {
+.theme-dark .grboard-display .shudan-goban {
   background: #FFFFFF;
 }
 
 /* SGF Edit Mode Styles */
-.goboard-sgf-output {
+.grboard-sgf-output {
   margin-top: 1em;
   padding: 1em;
   background: var(--background-secondary);
@@ -669,14 +899,14 @@ body {
   border-left: 4px solid var(--interactive-accent);
 }
 
-.goboard-sgf-output strong {
+.grboard-sgf-output strong {
   display: block;
   margin-bottom: 0.5em;
   color: var(--text-normal);
   font-size: 14px;
 }
 
-.goboard-sgf-textarea {
+.grboard-sgf-textarea {
   width: 100%;
   min-height: 120px;
   max-height: 300px;
@@ -692,16 +922,51 @@ body {
   margin-bottom: 0.5em;
 }
 
-.goboard-btn-delete {
+.grboard-btn-delete {
   background-color: var(--background-modifier-error);
   color: var(--text-on-accent);
 }
 
-.goboard-btn-delete:hover {
+.grboard-btn-delete:hover {
   background-color: var(--background-modifier-error-hover);
 }
 
-.goboard-btn-copy {
-  width: 100%;
-  margin-top: 0.5em;
+/* Navigation button display order (can be changed via CSS order) */
+/* Default DOM order: btnPrev(1) btnNext(2) btnFirst(3) btnLast(4) */
+/* Lower order value = displayed further left                      */
+
+.grboard-btn-group .grboard-btn-first { order: 1; }
+.grboard-btn-group .grboard-btn-prev  { order: 2; }
+.grboard-btn-group .grboard-btn-next  { order: 3; }
+.grboard-btn-group .grboard-btn-last  { order: 4; }
+
+/* ── Correction mode button ── */
+.bd-btn-correction-active {
+  background: #e8a000 !important;
+  color: #fff !important;
+  border-color: #c07800 !important;
+  animation: bd-correction-pulse 1.5s ease-in-out infinite;
 }
+.bd-btn-correction-active:hover {
+  background: #c07800 !important;
+}
+
+@keyframes bd-correction-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232,160,0,0.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(232,160,0,0); }
+}
+
+/* Correction overlay canvas: pointer events handled via JS */
+.bd-correction-overlay {
+  pointer-events: auto;
+}
+
+
+
+/* ── Image overlay button ── */
+.bd-btn-image-overlay-active {
+  background: #5566cc !important;
+  color: #fff !important;
+  border-color: #3344aa !important;
+}
+.bd-btn-image-overlay-active:hover { background: #3344aa !important; }
