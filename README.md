@@ -7,7 +7,7 @@
 ---
 ## demo
 
-[![Demo](docs/demo.png)](docs/demo.mp4)
+[![Demo](docs/demo.png)](https://github.com/user-attachments/assets/09971d5e-cd23-4624-859d-75a39d048111)
 
 ---
 
