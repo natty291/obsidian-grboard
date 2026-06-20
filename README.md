@@ -6,7 +6,8 @@
 
 ---
 ## demo
-![[docs/demo.mp4]]
+
+[![Demo](docs/demo.png)](docs/demo.mp4)
 
 ---
 
